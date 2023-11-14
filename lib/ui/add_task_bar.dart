@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:todo_apps/controllers/device_info.dart';
 import 'package:todo_apps/controllers/task.controller.dart';
 import 'package:todo_apps/models/task.dart';
 import 'package:todo_apps/theme/theme.dart';
@@ -17,6 +18,8 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskPageState extends State<AddTaskPage> {
+  String? deviceName;
+
   final TaskController _taskController = Get.put(TaskController());
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
@@ -37,6 +40,12 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
   @override
   Widget build(BuildContext context) {
+    DeviceInfo deviceInfo = DeviceInfo();
+    deviceInfo.getDeviceName().then((value) {
+      setState(() {
+        deviceName = value;
+      });
+    });
     return Scaffold(
       backgroundColor: context.theme.colorScheme.background,
       appBar: _appBar(context),
@@ -73,8 +82,15 @@ class _AddTaskPageState extends State<AddTaskPage> {
         ),
       ),
       actions: [
-        const CircleAvatar(
-          backgroundImage: AssetImage("images/avatar.png"),
+        // const CircleAvatar(
+        //   backgroundImage: AssetImage("images/avatar.png"),
+        // ),
+        InputChip(
+          padding: const EdgeInsets.all(0),
+          label: Text(
+            deviceName ?? "Unknown",
+            style: subTitleStyle,
+          ),
         ),
         IconButton(
           onPressed: () {},

@@ -2,18 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-class NotificationPage extends StatelessWidget {
+class NotificationPage extends StatefulWidget {
   final String? label;
 
   const NotificationPage({Key? key, required this.label}) : super(key: key);
 
   @override
+  State<NotificationPage> createState() => _NotificationPageState();
+}
+
+class _NotificationPageState extends State<NotificationPage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.theme.colorScheme.background,
-      appBar: _appBar(context, label),
+      appBar: _appBar(context, widget.label),
       body: Center(
-        child: Text(label ?? "No Data"),
+        child: Text(widget.label ?? "No Data"),
       ),
     );
   }
@@ -42,9 +47,6 @@ class NotificationPage extends StatelessWidget {
         ),
       ),
       actions: [
-        const CircleAvatar(
-          backgroundImage: AssetImage("images/avatar.png"),
-        ),
         IconButton(
           onPressed: () {},
           icon: Icon(

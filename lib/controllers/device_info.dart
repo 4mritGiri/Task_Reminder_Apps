@@ -17,5 +17,6 @@ class DeviceInfo {
       print('Failed to get device info: $e');
       return null;
     }
+    return null;
   }
 }
