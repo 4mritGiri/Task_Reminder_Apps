@@ -7,21 +7,21 @@ This is a simple ToDo app that allows you to add, edit, and delete tasks. It als
 
 - Add, edit
 
-   ![Add](https://user-images.githubusercontent.com/87581799/127390866-5b5b8b9a-0b9a-4b0f-8b0a-9b0b0b0b0b0b.png)
+   ![Add](https://github.com/4mritGiri/ToDo-Apps/blob/v0.1.0/images/screenshot/Add%20Task.png)
 
 - Delete tasks
 
-   ![delete](https://user-images.githubusercontent.com/87581799/127390866-5b5b8b9a-0b9a-4b0f-8b0a-9b0b0b0b0b0b.png)
+   ![delete](https://github.com/4mritGiri/ToDo-Apps/blob/v0.1.0/images/screenshot/Delete%20and%20Task%20complete.png)
 
 - Mark tasks as complete
 
-   ![Mark tasks as complete](https://user-images.githubusercontent.com/87581799/127390866-5b5b8b9a-0b9a-4b0f-8b0a-9b0b0b0b0b0b.png)
+   ![Mark tasks as complete](https://github.com/4mritGiri/ToDo-Apps/blob/v0.1.0/images/screenshot/Delete%20and%20Task%20complete.png)
 - Short tasks by date
 
-   ![Short tasks by date](https://user-images.githubusercontent.com/87581799/127390866-5b5b8b9a-0b9a-4b0f-8b0a-9b0b0b0b0b0b.png)
+   ![Short tasks by date](https://github.com/4mritGiri/ToDo-Apps/blob/v0.1.0/images/screenshot/Date%20list.png)
 - Notification
 
-   ![Notification](https://user-images.githubusercontent.com/87581799/127390866-5b5b8b9a-0b9a-4b0f-8b0a-9b0b0b0b0b0b.png)
+   ![Notification](https://github.com/4mritGiri/ToDo-Apps/blob/v0.1.0/images/screenshot/Notification.png)
 
 
 ## Built with
