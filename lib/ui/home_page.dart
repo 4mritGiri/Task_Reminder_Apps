@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage> {
         InputChip(
           padding: const EdgeInsets.all(0),
           label: Text(
-            "Hi, Unknown",
+            deviceName ?? "Unknown",
             style: GoogleFonts.lato(
               textStyle: const TextStyle(
                 fontSize: 16,

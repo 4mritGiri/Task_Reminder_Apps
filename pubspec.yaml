@@ -43,7 +43,6 @@ dependencies:
   flutter_timezone: ^1.0.8
   timezone: ^0.8.0
   flutter_staggered_animations: ^1.0.0
-  flutter_svg: ^2.0.9
   intl: ^0.18.1
   google_fonts: ^6.1.0
   sqflite: ^2.3.0

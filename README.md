@@ -39,11 +39,8 @@ This is a simple ToDo app that allows you to add, edit, and delete tasks. It als
       - flutter_timezone
       - timezone
       - flutter_staggered_animations
-      - flutter_svg
       - google_fonts
-      - sqflite
       - rxdart
-      - device_info_plus
       - permission_handler
 
 - ### dev_dependencies:
@@ -66,7 +63,7 @@ This is a simple ToDo app that allows you to add, edit, and delete tasks. It als
 1. Clone the repo
 
    ```sh
-   git clone
+   git clone https://github.com/4mritGiri/ToDo-Apps.git
    ```
 2. Install packages
 
