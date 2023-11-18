@@ -10,7 +10,10 @@ import 'package:intl/intl.dart';
 import 'package:todo_apps/controllers/device_info.dart';
 import 'package:todo_apps/controllers/task.controller.dart';
 import 'package:todo_apps/models/task.dart';
+import 'package:todo_apps/services/csv_services.dart';
+import 'package:todo_apps/services/excel_services.dart';
 import 'package:todo_apps/services/notification_services.dart';
+import 'package:todo_apps/services/pdf_services.dart';
 import 'package:todo_apps/services/theme_services.dart';
 import 'package:todo_apps/theme/theme.dart';
 import 'package:todo_apps/ui/add_task_bar.dart';
@@ -174,11 +177,43 @@ class _HomePageState extends State<HomePage> {
                   : Colors.grey[300],
             ),
             child: Icon(
-              shorted ? Icons.arrow_upward : Icons.arrow_downward,
+              shorted ? Icons.filter_alt : Icons.filter_alt_off_sharp,
               size: 26,
               color: Get.isDarkMode ? Colors.white : Colors.black,
             ),
           ),
+        ),
+        PopupMenuButton<String>(
+          offset: const Offset(0, 25),
+          // color: Get.isDarkMode ? darkGreyColor : Colors.white,
+          onSelected: (value) async {
+            if (value == "Export to CSV") {
+              // Export the taskList to CSV
+              await exportTasksToCSV(filterTaskList);
+            } else if (value == "Export to Excel") {
+              // Export the taskList to Excel
+              await exportTasksToExcel(filterTaskList);
+            } else if (value == "Save as PDF") {
+              // Export the taskList to PDF
+              await exportTasksToPDF(filterTaskList);
+            }
+          },
+          itemBuilder: (BuildContext context) {
+            return [
+              const PopupMenuItem(
+                value: "Export to CSV",
+                child: Text("Export to CSV"),
+              ),
+              const PopupMenuItem(
+                value: "Export to Excel",
+                child: Text("Export to Excel"),
+              ),
+              const PopupMenuItem(
+                value: "Save as PDF",
+                child: Text("Save as PDF"),
+              ),
+            ];
+          },
         ),
       ],
     );
@@ -235,7 +270,7 @@ class _HomePageState extends State<HomePage> {
             Task task = filterTaskList[index];
 
             // Schedule notification only if the task is not already scheduled
-            print(task.startTime);
+            print(task.remind);
 
             DateTime date = _parseDateTime(task.startTime.toString());
             var myTime = DateFormat.Hm().format(date);
@@ -258,11 +293,11 @@ class _HomePageState extends State<HomePage> {
                           },
                           onLongPress: () {
                             HapticFeedback.mediumImpact();
-                            Get.to(AddTaskPage(
-                              task: task,
-                            ));
-                            // AddTaskPage();
-                            // Get.to(() => _taskController.updateTaskInfo(task));
+                            Get.to(
+                              AddTaskPage(
+                                task: task,
+                              ),
+                            );
                           },
                           child: TaskTile(
                             task,

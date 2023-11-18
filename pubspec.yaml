@@ -51,6 +51,11 @@ dependencies:
   device_info_plus: ^9.1.0
 
   permission_handler: ^11.0.1
+  csv: ^5.0.0
+  excel: ^3.0.0
+  pdf: ^3.10.6
+  path_provider: ^2.1.1
+  flutter_file_dialog: ^3.0.2
 
 dev_dependencies:
   flutter_test:

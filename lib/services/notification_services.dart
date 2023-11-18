@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -9,7 +8,7 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:todo_apps/models/task.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
-import 'package:todo_apps/ui/notification_page.dart';
+import 'package:todo_apps/ui/notification_detail_page.dart';
 
 class NotifyHelper {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -55,12 +54,12 @@ class NotifyHelper {
 
       if (payload == "Theme Changed") {
         //going nowhere
-        Get.to(() => NotificationPage(
+        Get.to(() => NotificationDetailPage(
               label: payload,
             ));
       } else {
         print(payload);
-        Get.to(() => NotificationPage(
+        Get.to(() => NotificationDetailPage(
               label: payload,
             ));
       }
