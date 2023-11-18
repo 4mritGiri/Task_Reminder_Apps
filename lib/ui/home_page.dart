@@ -17,7 +17,6 @@ import 'package:todo_apps/services/pdf_services.dart';
 import 'package:todo_apps/services/theme_services.dart';
 import 'package:todo_apps/theme/theme.dart';
 import 'package:todo_apps/ui/add_task_bar.dart';
-import 'package:todo_apps/ui/notification_page.dart';
 import 'package:todo_apps/ui/widgets/button.dart';
 import 'package:todo_apps/ui/widgets/task_tile.dart';
 
@@ -30,25 +29,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Task> filterTaskList = [];
-
-  List notification = [
-    {
-      "title": "Task 1",
-      "body": "This is the body of Task 1",
-    },
-    {
-      "title": "Task 2",
-      "body": "This is the body of Task 2",
-    },
-    {
-      "title": "Task 3",
-      "body": "This is the body of Task 3",
-    },
-    {
-      "title": "Task 4",
-      "body": "This is the body of Task 4",
-    },
-  ];
 
   var notifyHelper;
   String? deviceName;
