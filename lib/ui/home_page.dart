@@ -504,6 +504,7 @@ class _HomePageState extends State<HomePage> {
               child: Text(
                 "Yes",
                 textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white),
               ),
             ),
           ),
@@ -519,6 +520,7 @@ class _HomePageState extends State<HomePage> {
               child: Text(
                 "No",
                 textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white),
               ),
             ),
           ),
