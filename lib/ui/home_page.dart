@@ -256,6 +256,14 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             _showBottomSheet(context, task);
                           },
+                          onLongPress: () {
+                            HapticFeedback.mediumImpact();
+                            Get.to(AddTaskPage(
+                              task: task,
+                            ));
+                            // AddTaskPage();
+                            // Get.to(() => _taskController.updateTaskInfo(task));
+                          },
                           child: TaskTile(
                             task,
                           ),
@@ -373,8 +381,8 @@ class _HomePageState extends State<HomePage> {
       Container(
         padding: const EdgeInsets.only(top: 4),
         height: task.isCompleted == 1
-            ? MediaQuery.of(context).size.height * 0.24
-            : MediaQuery.of(context).size.height * 0.32,
+            ? MediaQuery.of(context).size.height * 0.28
+            : MediaQuery.of(context).size.height * 0.35,
         color: Get.isDarkMode ? darkGreyColor : Colors.white,
         child: Column(children: [
           Container(
@@ -386,6 +394,18 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           const Spacer(),
+          _bottomSheetButton(
+            label: " Update Task",
+            color: Colors.green[400]!,
+            onTap: () {
+              Get.back();
+              Get.to(AddTaskPage(
+                task: task,
+              ));
+            },
+            context: context,
+            icon: Icons.update,
+          ),
           task.isCompleted == 1
               ? Container()
               : _bottomSheetButton(

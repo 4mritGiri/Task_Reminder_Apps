@@ -79,4 +79,34 @@ class DBHelper {
       return 0;
     }
   }
+
+  static Future<int> updateTaskInfo(Task task) async {
+    print('Updating data from $_tableName with id ===> ${task.id}');
+    try {
+      return await _database!.rawUpdate(
+        '''
+    UPDATE $_tableName
+    SET title = ?, note = ?, date = ?, startTime = ?, endTime = ?, remind = ?, repeat = ?, color = ?, isCompleted = ?, createdAt = ?, updatedAt = ? 
+    WHERE id = ?
+''',
+        [
+          task.title,
+          task.note,
+          task.date,
+          task.startTime,
+          task.endTime,
+          task.remind,
+          task.repeat,
+          task.color,
+          task.isCompleted,
+          task.createdAt,
+          task.updatedAt,
+          task.id
+        ],
+      );
+    } catch (e) {
+      print(e);
+      return 0;
+    }
+  }
 }

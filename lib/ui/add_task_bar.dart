@@ -11,7 +11,9 @@ import 'package:todo_apps/ui/widgets/button.dart';
 import 'package:todo_apps/ui/widgets/input_field.dart';
 
 class AddTaskPage extends StatefulWidget {
-  const AddTaskPage({super.key});
+  final Task? task;
+
+  const AddTaskPage({Key? key, this.task}) : super(key: key);
 
   @override
   State<AddTaskPage> createState() => _AddTaskPageState();
@@ -39,13 +41,30 @@ class _AddTaskPageState extends State<AddTaskPage> {
   int _selectedColor = 0;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+
+    if (widget.task != null) {
+      _titleController.text = widget.task!.title;
+      _noteController.text = widget.task!.note;
+      _selectedDate = DateFormat.yMd().parse(widget.task!.date!);
+      _startTime = widget.task!.startTime!;
+      _endTime = widget.task!.endTime!;
+      _selectedRemind = widget.task!.remind!;
+      _selectedRepeat = widget.task!.repeat!;
+      _selectedColor = widget.task!.color!;
+    }
+
     DeviceInfo deviceInfo = DeviceInfo();
     deviceInfo.getDeviceName().then((value) {
       setState(() {
         deviceName = value;
       });
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.theme.colorScheme.background,
       appBar: _appBar(context),
@@ -301,7 +320,10 @@ class _AddTaskPageState extends State<AddTaskPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               _colorPallet(),
-              MyButton(label: "Create Task", onTap: () => _validateData()),
+              MyButton(
+                label: widget.task == null ? "Create Task" : "Update Task",
+                onTap: () => _validateData(),
+              ),
             ],
           )
         ],
@@ -372,24 +394,30 @@ class _AddTaskPageState extends State<AddTaskPage> {
   }
 
   void _addTaskToDb() async {
-    int value = await _taskController.addTask(
-      task: Task(
-        // id: DateTime.now().millisecondsSinceEpoch,
-        title: _titleController.text,
-        note: _noteController.text,
-        date: DateFormat.yMd().format(_selectedDate),
-        startTime: _startTime,
-        endTime: _endTime,
-        remind: _selectedRemind,
-        repeat: _selectedRepeat,
-        color: _selectedColor,
-        isCompleted: 0,
-        createdAt: DateFormat.yMd().format(DateTime.now()),
-        updatedAt: DateFormat.yMd().format(DateTime.now()),
-      ),
+    Task task = Task(
+      id: widget.task?.id,
+      title: _titleController.text,
+      note: _noteController.text,
+      date: DateFormat.yMd().format(_selectedDate),
+      startTime: _startTime,
+      endTime: _endTime,
+      remind: _selectedRemind,
+      repeat: _selectedRepeat,
+      color: _selectedColor,
+      isCompleted: widget.task?.isCompleted ?? 0,
+      createdAt:
+          widget.task?.createdAt ?? DateFormat.yMd().format(DateTime.now()),
+      updatedAt: DateFormat.yMd().format(DateTime.now()),
     );
-    if (kDebugMode) {
-      print("My id is $value ");
+
+    if (widget.task == null) {
+      // Add a new task to the database
+      await _taskController.addTask(task: task);
+    } else {
+      // Update the existing task in the database
+      await _taskController.updateTaskInfo(task);
     }
+
+    Get.back();
   }
 }

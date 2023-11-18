@@ -24,6 +24,11 @@ class TaskController extends GetxController {
     getTasks();
   }
 
+  Future<void> updateTaskInfo(Task task) async {
+    await DBHelper.updateTaskInfo(task);
+    getTasks();
+  }
+
   @override
   Future<void> onReady() async {
     super.onReady();
