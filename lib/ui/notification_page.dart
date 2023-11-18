@@ -9,18 +9,18 @@ class Notification {
 }
 
 class NotificationPage extends StatelessWidget {
-  final List<Notification> notifications;
+  final List<Notification>? notifications;
 
-  NotificationPage({required this.notifications});
+  NotificationPage({this.notifications});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: notifications.length,
+      itemCount: 1, //notifications!.length,
       itemBuilder: (context, index) {
         return ListTile(
-          title: Text(notifications[index].title),
-          subtitle: Text(notifications[index].body),
+          title: Text("notifications![index].title"),
+          subtitle: Text("notifications![index].body"),
         );
       },
     );

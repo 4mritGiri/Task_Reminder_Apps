@@ -17,6 +17,7 @@ import 'package:todo_apps/services/pdf_services.dart';
 import 'package:todo_apps/services/theme_services.dart';
 import 'package:todo_apps/theme/theme.dart';
 import 'package:todo_apps/ui/add_task_bar.dart';
+import 'package:todo_apps/ui/notification_page.dart';
 import 'package:todo_apps/ui/widgets/button.dart';
 import 'package:todo_apps/ui/widgets/task_tile.dart';
 
@@ -29,6 +30,25 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Task> filterTaskList = [];
+
+  List notification = [
+    {
+      "title": "Task 1",
+      "body": "This is the body of Task 1",
+    },
+    {
+      "title": "Task 2",
+      "body": "This is the body of Task 2",
+    },
+    {
+      "title": "Task 3",
+      "body": "This is the body of Task 3",
+    },
+    {
+      "title": "Task 4",
+      "body": "This is the body of Task 4",
+    },
+  ];
 
   var notifyHelper;
   String? deviceName;
@@ -183,9 +203,36 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
+        // Stack(
+        //   children: <Widget>[
+        //     IconButton(
+        //       icon: const Icon(Icons.notifications),
+        //       onPressed: () {
+        //         // Handle button press
+        //         // Get.to(
+        //         //   () => NotificationPage(),
+        //         // );
+        //       },
+        //     ),
+        //     const Positioned(
+        //       right: 10,
+        //       top: 10,
+        //       child: Badge(
+        //         backgroundColor: Colors.red,
+        //         label: Text(
+        //           '4',
+        //           style: TextStyle(color: Colors.white),
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
         PopupMenuButton<String>(
           offset: const Offset(0, 25),
           // color: Get.isDarkMode ? darkGreyColor : Colors.white,
+          icon: const Icon(Icons.more_vert),
+          padding: const EdgeInsets.symmetric(horizontal: 0),
+          tooltip: "More",
           onSelected: (value) async {
             if (value == "Export to CSV") {
               // Export the taskList to CSV
@@ -498,6 +545,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Get.back();
               _taskController.deleteTask(task.id!);
+              _showTasks();
             },
             child: const SizedBox(
               width: 60,
