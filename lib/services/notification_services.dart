@@ -1,4 +1,3 @@
-// ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -45,20 +44,12 @@ class NotifyHelper {
 
     // For on tap onSelectNotification
     Future<void> selectNotification(String? payload) async {
-      if (payload != null) {
-        print('notification payload: $payload');
-      } else {
-        print('Notification Done');
-        // Get.dialog(const Text("Welcome to Flutter "));
-      }
-
       if (payload == "Theme Changed") {
         //going nowhere
         Get.to(() => NotificationDetailPage(
               label: payload,
             ));
       } else {
-        print(payload);
         Get.to(() => NotificationDetailPage(
               label: payload,
             ));
@@ -105,7 +96,6 @@ class NotifyHelper {
 
     // Check if the permissions are granted
     if (statuses[Permission.notification] == PermissionStatus.granted) {
-      print("Notification permission granted");
     } else {
       Get.snackbar("Permission Denied",
           "Please allow Notification permission from settings",
@@ -119,10 +109,8 @@ class NotifyHelper {
   Future<bool> requestScheduleExactAlarmPermission() async {
     if (await Permission.scheduleExactAlarm.request().isGranted) {
       // Either the permission was already granted before or the user just granted it.
-      print("SCHEDULE_EXACT_ALARM permission granted");
       return true;
     } else {
-      print("SCHEDULE_EXACT_ALARM permission denied");
       await Permission.scheduleExactAlarm.isDenied.then((value) {
         if (value) {
           Permission.scheduleExactAlarm.request();
@@ -133,15 +121,21 @@ class NotifyHelper {
   }
 
   // Immediate Notification
-  // ignore: unused_element
   Future<void> displayNotification(
       {required String title, required String body}) async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails('your channel id', 'your channel name',
-            channelDescription: 'your channel description',
-            importance: Importance.max,
-            priority: Priority.high,
-            showWhen: false);
+        AndroidNotificationDetails(
+      'your channel id',
+      'your channel name',
+      channelDescription: 'your channel description',
+      importance: Importance.max,
+      priority: Priority.high,
+      showWhen: false,
+      playSound: true,
+      icon: 'app_icon',
+      sound: RawResourceAndroidNotificationSound('mixkit_urgen_loop'),
+      largeIcon: DrawableResourceAndroidBitmap('app_icon'),
+    );
 
     const NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
@@ -183,7 +177,9 @@ class NotifyHelper {
         payload: "${task.title}|${task.note}|${task.startTime}|",
       );
     } else {
-      print("MESSAGE: Permission Denied");
+      Get.snackbar("Permission Denied",
+          "Please allow Notification permission from settings",
+          backgroundColor: Colors.redAccent, colorText: Colors.white);
     }
   }
 
@@ -214,7 +210,6 @@ class NotifyHelper {
     } catch (e) {
       // If the location is not found, set a default location
       tz.setLocalLocation(tz.getLocation('Asia/Kathmandu'));
-      print(e);
     }
   }
 }

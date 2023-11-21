@@ -179,7 +179,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
   _showTimePicker() {
     return showTimePicker(
-      initialEntryMode: TimePickerEntryMode.input,
+      initialEntryMode: TimePickerEntryMode.dial,
       context: context,
       initialTime: TimeOfDay(
         hour: int.parse(_startTime.split(":")[0]),

@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
-
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,6 +28,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Task> filterTaskList = [];
 
+  double? width;
+  double? height;
+
+  // ignore: prefer_typing_uninitialized_variables
   var notifyHelper;
   String? deviceName;
   bool shorted = false;
@@ -72,6 +74,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
     // print(filterTaskList[0].updatedAt);
     return GetBuilder<ThemeServices>(
       init: ThemeServices(),
@@ -251,14 +255,13 @@ class _HomePageState extends State<HomePage> {
       margin: const EdgeInsets.only(top: 20, left: 10),
       child: DatePicker(
         DateTime.now(),
-        height: 100,
+        height: 105,
         width: 80,
         initialSelectedDate: DateTime.now(),
         selectionColor: primaryColor,
         selectedTextColor: Colors.white,
         onDateChange: (date) {
           // New date selected
-
           setState(() {
             _selectedDate = date;
           });
@@ -297,7 +300,6 @@ class _HomePageState extends State<HomePage> {
             Task task = filterTaskList[index];
 
             // Schedule notification only if the task is not already scheduled
-            print(task.remind);
 
             DateTime date = _parseDateTime(task.startTime.toString());
             var myTime = DateFormat.Hm().format(date);
@@ -426,12 +428,15 @@ class _HomePageState extends State<HomePage> {
     int hour = int.parse(timeComponents[0]);
     int minute = int.parse(timeComponents[1]);
 
-    // Determine the period (AM or PM)
-    String period = components[1];
-
-    // Adjust hour for 12-hour format
-    if (period.toLowerCase() == 'pm' && hour < 12) {
-      hour += 12;
+    // If the time string contains a period (AM or PM),
+    //adjust the hour for 12-hour format
+    if (components.length > 1) {
+      String period = components[1];
+      if (period.toLowerCase() == 'pm' && hour < 12) {
+        hour += 12;
+      } else if (period.toLowerCase() == 'am' && hour == 12) {
+        hour = 0;
+      }
     }
 
     return DateTime(DateTime.now().year, DateTime.now().month,
