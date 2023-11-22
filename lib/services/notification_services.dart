@@ -91,18 +91,23 @@ class NotifyHelper {
     // Request the required permissions
     Map<Permission, PermissionStatus> statuses = await [
       Permission.notification,
+      Permission.scheduleExactAlarm,
       // Add other permissions as needed
     ].request();
 
     // Check if the permissions are granted
-    if (statuses[Permission.notification] == PermissionStatus.granted) {
+    if (statuses[Permission.notification] == PermissionStatus.granted &&
+        statuses[Permission.scheduleExactAlarm] == PermissionStatus.granted) {
     } else {
       Get.snackbar("Permission Denied",
           "Please allow Notification permission from settings",
           backgroundColor: Colors.redAccent, colorText: Colors.white);
 
       // If permissions are denied, we cannot continue the app
-      await Permission.notification.request();
+      await [
+        Permission.notification,
+        Permission.scheduleExactAlarm,
+      ].request();
     }
   }
 
@@ -152,39 +157,39 @@ class NotifyHelper {
   //  Scheduled Notification
   scheduledNotification(int hour, int minutes, Task task) async {
     // Future<void> scheduledNotification(int hour, int minutes, Task task) async {
-    if (await requestScheduleExactAlarmPermission()) {
-      tz.TZDateTime scheduledDate = await _convertTime(hour, minutes);
+    // if (await requestScheduleExactAlarmPermission()) {
+    tz.TZDateTime scheduledDate = await _convertTime(hour, minutes);
 
-      await flutterLocalNotificationsPlugin.zonedSchedule(
-        task.id!.toInt(),
-        task.title,
-        task.note,
-        scheduledDate,
-        const NotificationDetails(
-          android: AndroidNotificationDetails(
-            'your channel id',
-            'your channel name',
-            channelDescription: 'your channel description',
-            importance: Importance.max,
-            priority: Priority.high,
-            showWhen: false,
-            playSound: true,
-            icon: 'app_icon',
-            sound: RawResourceAndroidNotificationSound('mixkit_urgen_loop'),
-            largeIcon: DrawableResourceAndroidBitmap('app_icon'),
-          ),
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      task.id!.toInt(),
+      task.title,
+      task.note,
+      scheduledDate,
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'your channel id',
+          'your channel name',
+          channelDescription: 'your channel description',
+          importance: Importance.max,
+          priority: Priority.high,
+          showWhen: false,
+          playSound: true,
+          icon: 'app_icon',
+          sound: RawResourceAndroidNotificationSound('mixkit_urgen_loop'),
+          largeIcon: DrawableResourceAndroidBitmap('app_icon'),
         ),
-        androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        matchDateTimeComponents: DateTimeComponents.time,
-        payload: "${task.title}|${task.note}|${task.startTime}|",
-      );
-    } else {
-      Get.snackbar("Permission Denied",
-          "Please allow Notification permission from settings",
-          backgroundColor: Colors.redAccent, colorText: Colors.white);
-    }
+      ),
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time,
+      payload: "${task.title}|${task.note}|${task.startTime}|",
+    );
+    // } else {
+    //   Get.snackbar("Permission Denied",
+    //       "Please allow Notification permission from settings",
+    //       backgroundColor: Colors.redAccent, colorText: Colors.white);
+    // }
   }
 
   Future<tz.TZDateTime> _convertTime(int hour, int minutes) async {

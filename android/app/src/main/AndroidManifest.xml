@@ -4,10 +4,10 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-   
+   <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
 
     <application
-        android:label="ToDo Apps"
+        android:label="MyTask Apps"
         android:name="${applicationName}"
         android:icon="@drawable/app_icon">
     

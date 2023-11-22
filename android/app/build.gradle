@@ -21,13 +21,30 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+// if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//     alarmManager.setExactAndAllowWhileIdle(
+//         AlarmManager.RTC_WAKEUP,
+//         scheduledTimeInMillis,
+//         pendingIntent);
+// } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//     alarmManager.setExact(
+//         AlarmManager.RTC_WAKEUP,
+//         scheduledTimeInMillis,
+//         pendingIntent);
+// } else {
+//     alarmManager.set(
+//         AlarmManager.RTC_WAKEUP,
+//         scheduledTimeInMillis,
+//         pendingIntent);
+// }
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     namespace "com.example.todo_apps"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33 // flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -48,8 +65,8 @@ android {
         applicationId "com.example.todo_apps"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
+        minSdkVersion 21 // flutter.minSdkVersion
+        targetSdkVersion 30 // flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

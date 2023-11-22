@@ -96,32 +96,33 @@ class _HomePageState extends State<HomePage> {
 
   _addTaskBar() {
     return Container(
-        margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  DateFormat("EEE, d MMM yyyy").format(DateTime.now()),
-                  style: subHeadingStyle,
-                ),
-                Text(
-                  "Today",
-                  style: headingStyle,
-                )
-              ],
-            ),
-            MyButton(
-              label: "+ Add Task",
-              onTap: () async {
-                await Get.to(() => const AddTaskPage());
-                _taskController.getTasks();
-              },
-            )
-          ],
-        ));
+      margin: const EdgeInsets.only(left: 20, right: 20, top: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                DateFormat("EEE, d MMM yyyy").format(DateTime.now()),
+                style: subHeadingStyle.copyWith(fontSize: width! * .049),
+              ),
+              Text(
+                "Today",
+                style: headingStyle.copyWith(fontSize: width! * .06),
+              )
+            ],
+          ),
+          MyButton(
+            label: "+ Add Task",
+            onTap: () async {
+              await Get.to(() => const AddTaskPage());
+              _taskController.getTasks();
+            },
+          )
+        ],
+      ),
+    );
   }
 
   AppBar _appBar(ThemeServices themeServices) {
@@ -255,7 +256,7 @@ class _HomePageState extends State<HomePage> {
       margin: const EdgeInsets.only(top: 20, left: 10),
       child: DatePicker(
         DateTime.now(),
-        height: 105,
+        height: 125,
         width: 80,
         initialSelectedDate: DateTime.now(),
         selectionColor: primaryColor,
@@ -267,22 +268,22 @@ class _HomePageState extends State<HomePage> {
           });
         },
         monthTextStyle: GoogleFonts.lato(
-          textStyle: const TextStyle(
-            fontSize: 20,
+          textStyle: TextStyle(
+            fontSize: width! * 0.039,
             fontWeight: FontWeight.w600,
             color: Colors.grey,
           ),
         ),
         dateTextStyle: GoogleFonts.lato(
-          textStyle: const TextStyle(
-            fontSize: 20,
+          textStyle: TextStyle(
+            fontSize: width! * 0.037,
             fontWeight: FontWeight.w600,
             color: Colors.grey,
           ),
         ),
         dayTextStyle: GoogleFonts.lato(
           textStyle: TextStyle(
-            fontSize: 14,
+            fontSize: width! * 0.030,
             fontWeight: FontWeight.normal,
             color: Get.isDarkMode ? Colors.white : Colors.black,
           ),
