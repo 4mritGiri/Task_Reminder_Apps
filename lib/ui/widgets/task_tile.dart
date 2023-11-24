@@ -9,6 +9,9 @@ class TaskTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // if (task?.completedAt == DateTime.now()) {
+    //   task!.isCompleted = 0;
+    // }
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       width: MediaQuery.of(context).size.width,

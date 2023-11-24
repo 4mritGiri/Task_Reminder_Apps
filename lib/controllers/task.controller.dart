@@ -1,3 +1,4 @@
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:todo_apps/db/db.helper.dart';
 import 'package:todo_apps/models/task.dart';
@@ -16,11 +17,19 @@ class TaskController extends GetxController {
 
   void deleteTask(int id) async {
     await DBHelper.delete(id);
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin.cancel(id);
     getTasks();
   }
 
-  void markTaskAsCompleted(int id) async {
-    await DBHelper.updateTask(id);
+  void markTaskAsCompleted(int id, bool isCompleted) async {
+    await DBHelper.updateTask(id, isCompleted);
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+    if (isCompleted) {
+      flutterLocalNotificationsPlugin.cancel(id);
+    }
     getTasks();
   }
 

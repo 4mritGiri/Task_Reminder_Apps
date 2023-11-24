@@ -11,14 +11,14 @@ class Notification {
 class NotificationPage extends StatelessWidget {
   final List<Notification>? notifications;
 
-  NotificationPage({this.notifications});
+  const NotificationPage({this.notifications});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: 1, //notifications!.length,
       itemBuilder: (context, index) {
-        return ListTile(
+        return const ListTile(
           title: Text("notifications![index].title"),
           subtitle: Text("notifications![index].body"),
         );

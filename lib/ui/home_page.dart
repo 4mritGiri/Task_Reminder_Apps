@@ -193,10 +193,7 @@ class _HomePageState extends State<HomePage> {
         //     IconButton(
         //       icon: const Icon(Icons.notifications),
         //       onPressed: () {
-        //         // Handle button press
-        //         // Get.to(
-        //         //   () => NotificationPage(),
-        //         // );
+        //         Get.to(() => const NotificationPage());
         //       },
         //     ),
         //     const Positioned(
@@ -298,18 +295,31 @@ class _HomePageState extends State<HomePage> {
         return ListView.builder(
           itemCount: filterTaskList.length,
           itemBuilder: (_, index) {
-            Task task = filterTaskList[index];
-
-            // Schedule notification only if the task is not already scheduled
+            Task task = filterTaskList[filterTaskList.length - 1 - index];
 
             DateTime date = _parseDateTime(task.startTime.toString());
             var myTime = DateFormat.Hm().format(date);
+
+            var remind = DateFormat.Hm()
+                .format(date.subtract(Duration(minutes: task.remind!)));
             if (task.repeat == "Daily") {
+              if (task.remind! > 0) {
+                notifyHelper.scheduledNotification(
+                  int.parse(remind.toString().split(":")[0]), //hour
+                  int.parse(remind.toString().split(":")[1]), //minute
+                  task,
+                );
+              }
               notifyHelper.scheduledNotification(
                 int.parse(myTime.toString().split(":")[0]), //hour
                 int.parse(myTime.toString().split(":")[1]), //minute
                 task,
               );
+
+              // update if daily task is completed to reset it every 11:59 pm is not completed
+              if (DateTime.now().hour == 23 && DateTime.now().minute == 59) {
+                _taskController.markTaskAsCompleted(task.id!, false);
+              }
 
               return AnimationConfiguration.staggeredList(
                 position: index,
@@ -340,6 +350,13 @@ class _HomePageState extends State<HomePage> {
               );
             } else if (task.date ==
                 DateFormat('MM/dd/yyyy').format(_selectedDate)) {
+              if (task.remind! > 0) {
+                notifyHelper.scheduledNotification(
+                  int.parse(remind.toString().split(":")[0]), //hour
+                  int.parse(remind.toString().split(":")[1]), //minute
+                  task,
+                );
+              }
               notifyHelper.scheduledNotification(
                 int.parse(myTime.toString().split(":")[0]), //hour
                 int.parse(myTime.toString().split(":")[1]), //minute
@@ -481,7 +498,7 @@ class _HomePageState extends State<HomePage> {
                   color: primaryColor,
                   onTap: () {
                     Get.back();
-                    _taskController.markTaskAsCompleted(task.id!);
+                    _taskController.markTaskAsCompleted(task.id!, true);
                     _taskController.getTasks();
                   },
                   context: context,
@@ -620,5 +637,25 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  List<Task> getTasksCompletedToday(List<Task> taskList) {
+    DateTime now = DateTime.now();
+    DateTime today = DateTime(now.year, now.month, now.day);
+
+    return taskList.where((task) {
+      if (task.completedAt == null) {
+        return false;
+      }
+
+      DateTime completedDate = DateTime.parse(task.completedAt!);
+      completedDate = DateTime(
+        completedDate.year,
+        completedDate.month,
+        completedDate.day,
+      );
+
+      return completedDate == today;
+    }).toList();
   }
 }

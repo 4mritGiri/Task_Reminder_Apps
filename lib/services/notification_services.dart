@@ -157,7 +157,12 @@ class NotifyHelper {
   //  Scheduled Notification
   scheduledNotification(int hour, int minutes, Task task) async {
     // Future<void> scheduledNotification(int hour, int minutes, Task task) async {
-    // if (await requestScheduleExactAlarmPermission()) {
+    String msg;
+    if (task.remind! > 0) {
+      msg = "Reminder • ${task.remind} minute's ago";
+    } else {
+      msg = "${task.repeat}";
+    }
     tz.TZDateTime scheduledDate = await _convertTime(hour, minutes);
 
     await flutterLocalNotificationsPlugin.zonedSchedule(
@@ -165,7 +170,7 @@ class NotifyHelper {
       task.title,
       task.note,
       scheduledDate,
-      const NotificationDetails(
+      NotificationDetails(
         android: AndroidNotificationDetails(
           'your channel id',
           'your channel name',
@@ -175,8 +180,9 @@ class NotifyHelper {
           showWhen: false,
           playSound: true,
           icon: 'app_icon',
-          sound: RawResourceAndroidNotificationSound('mixkit_urgen_loop'),
-          largeIcon: DrawableResourceAndroidBitmap('app_icon'),
+          sound: const RawResourceAndroidNotificationSound('mixkit_urgen_loop'),
+          largeIcon: const DrawableResourceAndroidBitmap('app_icon'),
+          subText: msg,
         ),
       ),
       androidAllowWhileIdle: true,
@@ -185,11 +191,6 @@ class NotifyHelper {
       matchDateTimeComponents: DateTimeComponents.time,
       payload: "${task.title}|${task.note}|${task.startTime}|",
     );
-    // } else {
-    //   Get.snackbar("Permission Denied",
-    //       "Please allow Notification permission from settings",
-    //       backgroundColor: Colors.redAccent, colorText: Colors.white);
-    // }
   }
 
   Future<tz.TZDateTime> _convertTime(int hour, int minutes) async {

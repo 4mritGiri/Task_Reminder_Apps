@@ -9,6 +9,7 @@ class Task {
   int? color;
   int? remind;
   String? repeat;
+  String? completedAt;
   String? createdAt;
   String? updatedAt;
 
@@ -23,6 +24,7 @@ class Task {
     this.color,
     this.remind,
     this.repeat,
+    this.completedAt,
     this.createdAt,
     this.updatedAt,
   });
@@ -38,6 +40,7 @@ class Task {
     color = json['color'];
     remind = json['remind'];
     repeat = json['repeat'];
+    completedAt = json['completedAt'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
   }
@@ -54,6 +57,7 @@ class Task {
     data['color'] = color;
     data['remind'] = remind;
     data['repeat'] = repeat;
+    data['completedAt'] = completedAt;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
     return data;

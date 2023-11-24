@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:sqflite/sqflite.dart';
 import 'package:todo_apps/models/task.dart';
 
@@ -20,40 +18,40 @@ class DBHelper {
         path,
         version: _version,
         onCreate: (db, version) {
-          print('Creating table name ->  $_tableName');
+          // print('Creating table name ->  $_tableName');
           return db.execute(
-            'CREATE TABLE $_tableName (id INTEGER PRIMARY KEY AUTOINCREMENT, title STRING, note TEXT, date STRING, startTime STRING, endTime STRING, remind INTEGER, repeat STRING, color INTEGER, isCompleted INTEGER, createdAt STRING, updatedAt STRING)',
+            'CREATE TABLE $_tableName (id INTEGER PRIMARY KEY AUTOINCREMENT, title STRING, note TEXT, date STRING, startTime STRING, endTime STRING, remind INTEGER, repeat STRING, color INTEGER, isCompleted INTEGER, completedAt STRING, createdAt STRING, updatedAt STRING)',
           );
         },
       );
     } catch (e) {
-      print(e);
+      // print(e);
     }
   }
 
   static Future<int> insert(Task task) async {
-    print('Inserting data to $_tableName');
+    // print('Inserting data to $_tableName');
     try {
-      print(task.toJson());
+      // print(task.toJson());
       return await _database!.insert(_tableName, task.toJson());
     } catch (e) {
-      print(e);
+      // print(e);
       return 0;
     }
   }
 
   static Future<List<Map<String, dynamic>>> query() async {
-    print('Querying data from $_tableName ');
+    // print('Querying data from $_tableName ');
     try {
       return await _database!.query(_tableName);
     } catch (e) {
-      print(e);
+      // print(e);
       return [];
     }
   }
 
   static Future<int> delete(int id) async {
-    print('Deleting data from $_tableName with id ===> $id');
+    // print('Deleting data from $_tableName with id ===> $id');
     try {
       return await _database!.delete(
         _tableName,
@@ -61,34 +59,36 @@ class DBHelper {
         whereArgs: [id],
       );
     } catch (e) {
-      print(e);
+      // print(e);
       return 0;
     }
   }
 
-  static updateTask(int id) async {
-    print('Updating data from $_tableName with id ===> $id');
+  static updateTask(int id, bool isCompleted) async {
+    // print('Updating data from $_tableName with id ===> $id');
+
+    int isComplete = isCompleted ? 1 : 0;
     try {
       return await _database!.rawUpdate('''
-    UPDATE $_tableName 
-    SET isCompleted = ?
-    WHERE id = ?
-''', [1, id]);
+      UPDATE $_tableName 
+      SET isCompleted = ?, completedAt = ?
+      WHERE id = ?
+    ''', [isComplete, DateTime.now().toIso8601String(), id]);
     } catch (e) {
-      print(e);
+      // print(e);
       return 0;
     }
   }
 
   static Future<int> updateTaskInfo(Task task) async {
-    print('Updating data from $_tableName with id ===> ${task.id}');
+    // print('Updating data from $_tableName with id ===> ${task.id}');
     try {
       return await _database!.rawUpdate(
         '''
-    UPDATE $_tableName
-    SET title = ?, note = ?, date = ?, startTime = ?, endTime = ?, remind = ?, repeat = ?, color = ?, isCompleted = ?, createdAt = ?, updatedAt = ? 
-    WHERE id = ?
-''',
+      UPDATE $_tableName
+      SET title = ?, note = ?, date = ?, startTime = ?, endTime = ?, remind = ?, repeat = ?, color = ?, isCompleted = ?, createdAt = ?, updatedAt = ?, completedAt = ?
+      WHERE id = ?
+      ''',
         [
           task.title,
           task.note,
@@ -101,11 +101,12 @@ class DBHelper {
           task.isCompleted,
           task.createdAt,
           task.updatedAt,
+          task.completedAt,
           task.id
         ],
       );
     } catch (e) {
-      print(e);
+      // print(e);
       return 0;
     }
   }
