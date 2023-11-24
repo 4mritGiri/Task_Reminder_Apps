@@ -334,9 +334,7 @@ class _HomePageState extends State<HomePage> {
                           onLongPress: () {
                             HapticFeedback.mediumImpact();
                             Get.to(
-                              AddTaskPage(
-                                task: task,
-                              ),
+                              () => AddTaskPage(task: task),
                             );
                           },
                           child: TaskTile(
@@ -484,9 +482,7 @@ class _HomePageState extends State<HomePage> {
             color: Colors.green[400]!,
             onTap: () {
               Get.back();
-              Get.to(AddTaskPage(
-                task: task,
-              ));
+              Get.to(() => AddTaskPage(task: task));
             },
             context: context,
             icon: Icons.update,
