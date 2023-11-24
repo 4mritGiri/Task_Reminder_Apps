@@ -11,7 +11,7 @@ class Notification {
 class NotificationPage extends StatelessWidget {
   final List<Notification>? notifications;
 
-  const NotificationPage({this.notifications});
+  const NotificationPage({super.key, this.notifications});
 
   @override
   Widget build(BuildContext context) {

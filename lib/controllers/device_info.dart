@@ -14,7 +14,7 @@ class DeviceInfo {
         return iosInfo.name;
       }
     } catch (e) {
-      print('Failed to get device info: $e');
+      // print('Failed to get device info: $e');
       return null;
     }
     return null;
