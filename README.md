@@ -121,19 +121,19 @@ For help getting started with Flutter, view
 
 1. Clone the repository
 
-   ```sh
-   git clone https://github.com/4mritGiri/Task_Reminder_Apps.git
-   ```
+ ```sh
+  git clone https://github.com/4mritGiri/Task_Reminder_Apps.git
+ ```
 2. Install dependencies
 
-```sh
+ ```sh
    flutter pub get
-   ```
+  ```
 3. Run the app
    
-   ```sh
-      flutter run
-      ```
+  ```sh
+    flutter run
+  ```
 ## Authors
   - [@4mritGiri](https://github.com/4mrit)
 
