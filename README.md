@@ -16,7 +16,7 @@ The Task Reminder App is a simple yet powerful task management application that 
 - Responsive Design
 
 ## Demo
-[Task Reminder App download]()
+[🔴Task Reminder App download⬇️ 📍](https://github.com/4mritGiri/Task_Reminder_Apps/releases/download/v1.3.0/app-release.apk)
 
 ## Table of Contents
 - [Task Reminder App](#task-reminder-app)
@@ -122,7 +122,7 @@ For help getting started with Flutter, view
 1. Clone the repository
 
    ```sh
-   git clone https://github.com/4mritGiri/ToDo-Apps.git
+   git clone https://github.com/4mritGiri/Task_Reminder_Apps.git
    ```
 2. Install dependencies
 
@@ -155,7 +155,7 @@ Distributed under the MIT License. See LICENSE for more information.
 - [Dart](https://dart.dev/)
 - [Android Studio](https://developer.android.com/studio)
 - [Visual Studio Code](https://code.visualstudio.com/)
-- [GitHub](https://github.com/4mritGiri/ToDo-Apps)
+- [GitHub](https://github.com/4mritGiri/Task_Reminder_Apps)
 - [Git](https://git-scm.com/)
 
 ## Contact
