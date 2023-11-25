@@ -16,7 +16,7 @@ The Task Reminder App is a simple yet powerful task management application that 
 - Responsive Design
 
 ## Demo
-[🔴Task Reminder App download⬇️ 📍](https://github.com/4mritGiri/Task_Reminder_Apps/releases/download/v1.3.0/app-release.apk)
+[🔴Task Reminder App download⬇️ 📍](https://github.com/4mritGiri/Task_Reminder_Apps/releases/download/v1.3.0/TaskReminder.apk)
 
 ## Table of Contents
 - [Task Reminder App](#task-reminder-app)
