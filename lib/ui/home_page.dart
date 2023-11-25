@@ -302,19 +302,25 @@ class _HomePageState extends State<HomePage> {
 
             var remind = DateFormat.Hm()
                 .format(date.subtract(Duration(minutes: task.remind!)));
+
+            int mainTaskNotificationId = task.id!.toInt();
+            int reminderNotificationId = mainTaskNotificationId + 1;
+
             if (task.repeat == "Daily") {
-              if (task.remind! > 0) {
-                notifyHelper.scheduledNotification(
+              if (task.remind! > 4) {
+                notifyHelper.remindNotification(
                   int.parse(remind.toString().split(":")[0]), //hour
                   int.parse(remind.toString().split(":")[1]), //minute
                   task,
                 );
+                notifyHelper.cancelNotification(reminderNotificationId);
               }
               notifyHelper.scheduledNotification(
                 int.parse(myTime.toString().split(":")[0]), //hour
                 int.parse(myTime.toString().split(":")[1]), //minute
                 task,
               );
+              notifyHelper.cancelNotification(reminderNotificationId);
 
               // update if daily task is completed to reset it every 11:59 pm is not completed
               if (DateTime.now().hour == 23 && DateTime.now().minute == 59) {
@@ -349,19 +355,19 @@ class _HomePageState extends State<HomePage> {
             } else if (task.date ==
                 DateFormat('MM/dd/yyyy').format(_selectedDate)) {
               if (task.remind! > 0) {
-                notifyHelper.scheduledNotification(
+                notifyHelper.remindNotification(
                   int.parse(remind.toString().split(":")[0]), //hour
                   int.parse(remind.toString().split(":")[1]), //minute
                   task,
                 );
+                notifyHelper.cancelNotification(reminderNotificationId);
               }
               notifyHelper.scheduledNotification(
                 int.parse(myTime.toString().split(":")[0]), //hour
                 int.parse(myTime.toString().split(":")[1]), //minute
                 task,
               );
-              // Update the task to mark the notification as scheduled
-              // _taskController.markNotificationAsScheduled(task.id!);
+              notifyHelper.cancelNotification(reminderNotificationId);
 
               return AnimationConfiguration.staggeredList(
                 position: index,
@@ -544,6 +550,10 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Get.back();
               _taskController.deleteTask(task.id!);
+              // Cancel delete notification
+              if (task.remind! > 4) {
+                notifyHelper.cancelNotification(task.id! + 1);
+              }
               _showTasks();
             },
             child: const SizedBox(

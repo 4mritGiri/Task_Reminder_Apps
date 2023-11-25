@@ -155,19 +155,16 @@ class NotifyHelper {
   }
 
   //  Scheduled Notification
-  scheduledNotification(int hour, int minutes, Task task) async {
+  Future<void> scheduledNotification(int hour, int minutes, Task task) async {
     // Future<void> scheduledNotification(int hour, int minutes, Task task) async {
     String msg;
-    if (task.remind! > 0) {
-      msg = "Reminder • ${task.remind} minute's ago";
-    } else {
-      msg = "${task.repeat}";
-    }
+    msg = "🔴Now your task starting⏰.";
+
     tz.TZDateTime scheduledDate = await _convertTime(hour, minutes);
 
     await flutterLocalNotificationsPlugin.zonedSchedule(
       task.id!.toInt(),
-      task.title,
+      "🔴${task.title}",
       task.note,
       scheduledDate,
       NotificationDetails(
@@ -181,7 +178,7 @@ class NotifyHelper {
           playSound: true,
           icon: 'app_icon',
           sound: const RawResourceAndroidNotificationSound('mixkit_urgen_loop'),
-          largeIcon: const DrawableResourceAndroidBitmap('app_icon'),
+          // largeIcon: const DrawableResourceAndroidBitmap('app_icon'),
           subText: msg,
         ),
       ),
@@ -191,6 +188,39 @@ class NotifyHelper {
       matchDateTimeComponents: DateTimeComponents.time,
       payload: "${task.title}|${task.note}|${task.startTime}|",
     );
+  }
+
+  Future<void> remindNotification(int hour, int minutes, Task task) async {
+    tz.TZDateTime scheduledDate = await _convertTime(hour, minutes);
+
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      task.id!.toInt() + 1,
+      "⚠️ Don't forget to complete your task.",
+      task.title,
+      scheduledDate,
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          'channel id',
+          'channel name',
+          channelDescription: 'your channel description',
+          importance: Importance.max,
+          priority: Priority.high,
+          showWhen: false,
+          playSound: true,
+          icon: 'app_icon',
+          largeIcon: const DrawableResourceAndroidBitmap('app_icon'),
+          subText: "⏰ ${task.remind} minute's remaining",
+        ),
+      ),
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time,
+    );
+  }
+
+  Future<void> cancelNotification(int notificationId) async {
+    await flutterLocalNotificationsPlugin.cancel(notificationId);
   }
 
   Future<tz.TZDateTime> _convertTime(int hour, int minutes) async {
