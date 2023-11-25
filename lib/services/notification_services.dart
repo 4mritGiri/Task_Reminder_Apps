@@ -196,7 +196,7 @@ class NotifyHelper {
     await flutterLocalNotificationsPlugin.zonedSchedule(
       task.id!.toInt() + 1,
       "⚠️ Don't forget to complete your task.",
-      task.title,
+      "At ${task.startTime}🔴${task.title}",
       scheduledDate,
       NotificationDetails(
         android: AndroidNotificationDetails(

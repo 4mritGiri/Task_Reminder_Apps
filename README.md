@@ -1,10 +1,43 @@
-# ToDo App
+# Task Reminder App
 
 ## Description
 
-The ToDo App is a simple yet powerful task management application that enables users to add, edit, and delete tasks efficiently. Additionally, it offers features like task completion tracking, date sorting, notifications, and task export capabilities.
+The Task Reminder App is a simple yet powerful task management application that enables users to add, edit, and delete tasks efficiently. Additionally, it offers features like task completion tracking, date sorting, notifications & reminder, and task export capabilities.
 
 ## Features
+
+- Add, edit, and delete tasks
+- Mark tasks as complete
+- Sort tasks by date
+- Filter tasks by updateAt
+- Export tasks as PDF, CSV, and Excel
+- Notification & Reminder
+- Dark Mode & Light Mode
+- Responsive Design
+
+## Demo
+[Task Reminder App download]()
+
+## Table of Contents
+- [Task Reminder App](#task-reminder-app)
+  - [Description](#description)
+  - [Features](#features)
+  - [Demo](#demo)
+  - [Table of Contents](#table-of-contents)
+  - [Screenshots](#screenshots)
+  - [Built with](#built-with)
+    - [Dependencies](#dependencies)
+    - [Dev Dependencies](#dev-dependencies)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+      - [Flutter](#flutter)
+    - [Installation](#installation)
+  - [Authors](#authors)
+  - [Contributors](#contributors)
+  - [License](#license)
+  - [Acknowledgements](#acknowledgements)
+  - [Contact](#contact)
+  - [References](#references)
 
 ### Screenshots
 

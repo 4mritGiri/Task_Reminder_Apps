@@ -7,7 +7,7 @@
    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
 
     <application
-        android:label="MyTask Apps"
+        android:label="Task Reminder"
         android:name="${applicationName}"
         android:icon="@drawable/app_icon">
     

@@ -1,4 +1,4 @@
-package com.example.todo_apps
+package com.amrit.task_reminder
 
 import io.flutter.embedding.android.FlutterActivity
 
