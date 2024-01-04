@@ -352,8 +352,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               );
-            } else if (task.date ==
-                DateFormat('MM/dd/yyyy').format(_selectedDate)) {
+            } else if (task.date == DateFormat.yMd().format(_selectedDate)) {
               if (task.remind! > 0) {
                 notifyHelper.remindNotification(
                   int.parse(remind.toString().split(":")[0]), //hour
