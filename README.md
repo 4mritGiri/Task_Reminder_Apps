@@ -135,7 +135,7 @@ For help getting started with Flutter, view
     flutter run
   ```
 ## Authors
-  - [@4mritGiri](https://github.com/4mrit)
+  - [@4mritGiri](https://github.com/4mritGiri)
 
 ## Contributors
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make 
